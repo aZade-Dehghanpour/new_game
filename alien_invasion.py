@@ -30,15 +30,23 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type ==pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    self.ship.move_down = True
-                elif event.key == pygame.K_UP:
-                    self.ship.move_up = True
-                elif event.key == pygame.K_q:
-                    sys.exit()
+                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                self.ship.move_down = False
-                self.ship.move_up = False
+                self._check_keyup_events(event)
+    
+    def _check_keydown_events(self,event):
+        if event.key == pygame.K_DOWN:
+            self.ship.move_down = True
+        elif event.key == pygame.K_UP:
+            self.ship.move_up = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+
+    def _check_keyup_events(self,event):
+        if event.key == pygame.K_DOWN: 
+            self.ship.move_down = False
+        elif event.key == pygame.K_UP:
+            self.ship.move_up = False
 
     def _update_screen(self):
         """Update images on the screen and make most recently drawn surface visible"""

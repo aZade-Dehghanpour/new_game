@@ -26,7 +26,8 @@ class AlienInvasion:
             #Update location of ship
             self.ship.update()
             #Update location of bullet
-            self.bullets.update()
+            self._update_bullet()
+            
             #Update screen
             self._update_screen()
             
@@ -56,11 +57,19 @@ class AlienInvasion:
         elif event.key == pygame.K_UP:
             self.ship.move_up = False
     
+    def _update_bullet(self):
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.left>self.screen.get_rect().right:
+                self.bullets.remove(bullet)
+
     def _fire_bullet(self):
-        new_bullet = Bullets(self)
+        
         if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullets(self)
             self.bullets.add(new_bullet)
 
+    
     def _update_screen(self):
         """Update images on the screen and make most recently drawn surface visible"""
         
@@ -72,6 +81,9 @@ class AlienInvasion:
             bullet.draw_bullet()
         #make the most recently drawn screen visible
         pygame.display.flip()
+
+    
+
 
 if __name__ == "__main__":
     #make a game instance and run the game

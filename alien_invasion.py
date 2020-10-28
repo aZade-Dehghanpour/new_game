@@ -55,9 +55,11 @@ class AlienInvasion:
             self.ship.move_down = False
         elif event.key == pygame.K_UP:
             self.ship.move_up = False
+    
     def _fire_bullet(self):
         new_bullet = Bullets(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            self.bullets.add(new_bullet)
 
     def _update_screen(self):
         """Update images on the screen and make most recently drawn surface visible"""
